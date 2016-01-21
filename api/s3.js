@@ -1,11 +1,11 @@
 var AWS = require('aws-sdk');
 Promise = require('promise');
 
-// AWS.config.update({
-// 	accessKeyId: process.env.AWS_KEY, 
-// 	secretAccessKey: process.env.AWS_SECRET, 
-// 	region: process.env.AWS_REGION
-// })
+AWS.config.update({
+	accessKeyId: process.env.AWS_KEY, 
+	secretAccessKey: process.env.AWS_SECRET, 
+	region: process.env.AWS_REGION
+})
 
 var s3 = this.s3 = new AWS.S3({apiVersion: '2006-03-01'});
 

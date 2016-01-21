@@ -3,11 +3,11 @@
 var AWS = require('aws-sdk');
 var Promise = require('promise');
 
-// AWS.config.update({
-// 	accessKeyId: process.env.AWS_KEY, 
-// 	secretAccessKey: process.env.AWS_SECRET, 
-// 	region: process.env.AWS_REGION
-// })
+AWS.config.update({
+	accessKeyId: process.env.AWS_KEY, 
+	secretAccessKey: process.env.AWS_SECRET, 
+	region: process.env.AWS_REGION
+})
 
 var dynamodb = this.dynamodb = new AWS.DynamoDB({apiVersion: '2015-02-02'});
 
@@ -114,6 +114,9 @@ module.exports.scan = function(table_name, start_key) {
 		// ExclusiveStartKey: start_key,
 		Select:'ALL_ATTRIBUTES'
 	};
+	if (start_key.length > 0) {
+		params.ExclusiveStartKey=start_key;
+	}
 	return new Promise(function(resolve, reject) {
 		dynamodb.scan(params, function(err, data) {
 			if (err) reject(err);
