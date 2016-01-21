@@ -1,0 +1,14 @@
+{
+  "name": "mapping_service",
+  "version": "0.0.2",
+  "description": "Service which processing press_release DB and creates map for display.",
+  "main": "map.js",
+  "scripts": {
+    "test": "jasmine-node ./spec"
+  },
+  "dependencies": {
+  	"promise":"latest"
+  },
+  "author": "David Jay",
+  "license": "MIT"
+}

@@ -1,0 +1,4 @@
+devDockerfile
+config.js
+*.zip
+node_modules/
