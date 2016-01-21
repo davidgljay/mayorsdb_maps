@@ -7,7 +7,10 @@
     "test": "jasmine-node ./spec"
   },
   "dependencies": {
-  	"promise":"latest"
+    "promise":"7.1.1",
+    "aws-sdk":"2.2.30",
+    "winston":"latest",
+    "winston-papertrail":"latest"
   },
   "author": "David Jay",
   "license": "MIT"
