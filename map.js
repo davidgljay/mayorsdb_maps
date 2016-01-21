@@ -25,15 +25,14 @@ var scan_dynamo = function(lastkey) {
 };
 
 var post_results = function() {
-	console.log(tag_hash.post_prep().length);
 	return s3.batch_post(tag_hash.post_prep());
 };
 
 //Map the tags by scanning dynamo, then posting the results to s3.
 scan_dynamo('')
 .then(post_results)
-.then(function() {
-	logger.info('Mapping scan complete');
+.then(function(data) {
+	logger.info("Map scanning complete.");
 }, function(err) {
 	logger.error(err);
 });

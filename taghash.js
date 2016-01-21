@@ -42,9 +42,8 @@ Taghash.prototype.parsetags = function(tags) {
 		self.maps.all.push({
 			tag:tagname,
 			count:tag.releases.SS.length,
-			med_date:med_date(tag.releases.SS)
+			med_date:med_date(parse_array(tag.releases.SS))
 		});
-
 
 		self.maps['tags/'+tagname] = {
 			tag:tagname,
@@ -62,17 +61,18 @@ Taghash.prototype.parsetags = function(tags) {
 						tags:[]
 					};
 				}
+				var parsed_releases = parse_array(tag[key].SS);
 				self.maps['cities/'+city].tags.push({
 					tag:tagname,
 					count:tag[key].SS.length,
-					med_date:med_date(tag[key].SS),
-					releases:tag[key].SS
+					med_date:med_date(parsed_releases),
+					releases:parse_array(parsed_releases)
 				});
 				self.maps['tags/'+tagname].cities.push({
 					city:city_name,
 					count:tag[key].SS.length,
-					med_date:med_date(tag[key].SS),
-					releases:tag[key].SS
+					med_date:med_date(parsed_releases),
+					releases:parsed_releases
 				});
 
 				//TODO: Add people
@@ -94,6 +94,18 @@ Taghash.prototype.post_prep = function() {
 	return items;
 };
 
+var parse_array = function(array) {
+	var results = [];
+	for (var i=0; i<array.length; i++) {
+		if (array[i].url) {
+			results.push(array[i])
+		} else {
+			results.push(JSON.parse(array[i]))			
+		}		
+	}
+	return results;
+} 
+
 var med_date = Taghash.prototype.med_date = function(releases) {
 	if (releases.length === 1) {
 		return releases[0].date;
@@ -101,7 +113,7 @@ var med_date = Taghash.prototype.med_date = function(releases) {
 
 	//Sort the array of releases by date
 	releases = releases.sort(function(a,b) {
-		return Date.parse(a.date.S)-Date.parse(b.date.S);
+		return Date.parse(a.date)-Date.parse(b.date);
 	});
 	//If an odd number of releases
 	var halfway = releases.length/2;
@@ -109,7 +121,7 @@ var med_date = Taghash.prototype.med_date = function(releases) {
 		return releases[halfway-0.5].date;
 	} else {
 	//If an even number of releases
-		return {S:new Date((Date.parse(releases[halfway].date.S) + Date.parse(releases[halfway-1].date.S))/2).toISOString()};
+		return new Date((Date.parse(releases[halfway].date) + Date.parse(releases[halfway-1].date))/2).toISOString();
 	}
 };
 

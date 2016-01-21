@@ -27,7 +27,7 @@ var post = module.exports.post = function(data, path) {
 };
 
 module.exports.batch_post = function(items) {
-	console.log("Batch posting " + items.length + " to s3.");
+	logger.info("Batch posting " + items.length + " to s3.");
 	var promise_array = [];
 	for (var i = items.length - 1; i >= 0; i--) {
 		promise_array.push(post(items[i].data, items[i].path));

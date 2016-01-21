@@ -107,7 +107,6 @@ var put_params = function(items) {
 };
 
 module.exports.scan = function(table_name, start_key) {
-	console.log("scanning " + table_name);
 	var params = {
 		TableName:table_name,
 		ConsistentRead:true,
