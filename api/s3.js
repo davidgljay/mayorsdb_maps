@@ -12,7 +12,7 @@ var s3 = this.s3 = new AWS.S3({apiVersion: '2006-03-01'});
 var post = module.exports.post = function(data, path) {
 	var params = 
 		{
-			Bucket: 'mayors.buzz',
+			Bucket: process.env.S3_BUCKET,
 			ACL: 'public-read', 
 			Key: 'maps/'+path+'.json', 
 			Body: new Buffer(JSON.stringify(data)),
