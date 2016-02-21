@@ -33,42 +33,8 @@ var post_results = function() {
 scan_dynamo('')
 .then(post_results)
 .then(function(data) {
-	logger.info("Map scanning complete.");
-	var articlesDynamoParams = {
-		tablename:"mayorsdb_articles",
-		updates:[
-			{
-				ReadCapacityUnits:1,
-				WriteCapcityUnity:1
-			},
-			{
-				index:'city-index'
-				ReadCapacityUnits:1,
-				WriteCapcityUnity:1
-			},
-			{
-				index:'url-index'
-				ReadCapacityUnits:1,
-				WriteCapcityUnity:1
-			}
-		]
-	};
-	var tagDynoParams = {
-		tablename:'mayorsdb_tags',
-		updates:[
-			{
-				ReadCapacityUnits:1,
-				WriteCapcityUnity:1
-			}
-		]
-	};
-	var updateDyanoTopic = 'arn:aws:sns:us-east-1:663987893806:mayorsdb_updatedyno';
-	//Stop the Ec2 instance;
+	//Scale down AWS resources;
 	sns.('','arn:aws:sns:us-east-1:663987893806:mayorsdb_notif');
-
-	//Scale down the dynamo dbs.
-	sns(JSON.stringify(articlesDynamoParams), updateDynoTopic);
-	sns(JSON.stringify(tagDynoParams), updateDynoTopic);
 }, function(err) {
 	logger.error(err);
 });
