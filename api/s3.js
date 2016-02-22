@@ -1,5 +1,6 @@
-var AWS = require('aws-sdk');
-Promise = require('promise');
+var AWS = require('aws-sdk'),
+Promise = require('promise'),
+logger = require('../utils/logger');
 
 AWS.config.update({
 	accessKeyId: process.env.AWS_KEY, 
