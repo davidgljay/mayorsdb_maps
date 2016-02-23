@@ -34,7 +34,8 @@ scan_dynamo('')
 .then(post_results)
 .then(function(data) {
 	//Scale down AWS resources;
-	sns('','arn:aws:sns:us-east-1:663987893806:mayorsdb_notif');
+	sns('','arn:aws:sns:us-east-1:663987893806:mayorsdb_notif').then(
+		logger.info("Mapping complete"));
 }, function(err) {
 	logger.error(err);
 });
