@@ -10,24 +10,42 @@ var Taghash = function() {
 * Creates an object of the structure:
 *
   {
-	all_tags:[
+	all_tags:{
+		max: //Maximum count of any tag 
+		tags:[
 		{
 			tag:'tag',
 			count:'count',
 			med_date:date		
 		}		
 		...
-	],
-	tag:[
+	]},
+	tag:{
+		tag: //Tag name
+		max: //Maximum count of any tag in all_tags. This will keep scale consistent.
+		releases:[
 		{
-			//Same, but with article info included
-		}
-	],
-	city: [
-		{
-			//Tags by city
-		}
-	],
+			//Articles mentioning this tag
+		},
+		cities:[{
+			//Cities mentioning this tag
+		}]
+		tags:[{
+			//tags mentioned in conjunction w/ this tag
+		}]
+	]},
+	city: {
+		city: //city name
+		max: //Maximum count of any tag in all_tags
+		releases: [
+			//Press releases from this city
+		],
+		tags: [{
+			tags mentioned in this city
+			tag:[{
+				//subtags mentioned in this city
+			}]
+		}]
 
  }
 
@@ -35,6 +53,14 @@ var Taghash = function() {
 
 Taghash.prototype.parsetags = function(tags) {
 	var self = this;
+	//Get maximum tag count
+	var max_num_tags=0;
+	for (var i=0; i<tags.length; i++) {
+		if (tags[i].releases.SS.length > max) {
+			max_num_tags = tags[i].releases.SS.length;
+		}
+	}
+
 	for (var i = tags.length - 1; i >= 0; i--) {
 		var tag = tags[i],
 		tagname = tag.tag.S.replace(/[^a-z,0-9]/ig,'_');
