@@ -2,7 +2,9 @@
 
 var Taghash = function() {
 	this.maps = {
-		all:[]
+		all:{
+			tags:[]
+		}
 	};
 };
 
@@ -60,12 +62,13 @@ Taghash.prototype.parsetags = function(tags) {
 			max_num_tags = tags[i].releases.SS.length;
 		}
 	}
+	self.maps.all.max = max_num_tags;
 
 	for (var i = tags.length - 1; i >= 0; i--) {
 		var tag = tags[i],
 		tagname = tag.tag.S.replace(/[^a-z,0-9]/ig,'_');
 
-		self.maps.all.push({
+		self.maps.all.tags.push({
 			tag:tagname,
 			count:tag.releases.SS.length,
 			med_date:med_date(parse_array(tag.releases.SS))
@@ -73,7 +76,8 @@ Taghash.prototype.parsetags = function(tags) {
 
 		self.maps['tags/'+tagname] = {
 			tag:tagname,
-			cities:[]
+			cities:[],
+			max:max_num_tags
 		};
 
 		for (var key in tag) {
@@ -84,7 +88,8 @@ Taghash.prototype.parsetags = function(tags) {
 				if (!self.maps.hasOwnProperty('cities/'+city)) {
 					self.maps['cities/'+city] = {
 						city:city_name,
-						tags:[]
+						tags:[],
+						max:max_num_tags
 					};
 				}
 				var parsed_releases = parse_array(tag[key].SS);
