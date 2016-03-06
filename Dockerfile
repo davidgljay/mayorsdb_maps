@@ -6,4 +6,4 @@ RUN apt-get update
 COPY ./ /home/mayorsdb
 WORKDIR /home/mayorsdb
 RUN npm install
-CMD node map
+CMD node index

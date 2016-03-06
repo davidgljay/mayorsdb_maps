@@ -4,7 +4,7 @@
   "description": "Service which processing press_release DB and creates map for display.",
   "main": "map.js",
   "scripts": {
-    "test": "jasmine-node ./spec"
+    "test": "jasmine-node --captureExceptions ./spec"
   },
   "dependencies": {
     "promise":"7.1.1",
