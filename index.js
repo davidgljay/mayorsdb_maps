@@ -8,8 +8,6 @@ s3 = require('./api/s3'),
 sns = require('./api/sns'),
 logger = require('./utils/logger');
 
-require('./config');
-
 var tag_hash = new TagHash();
 
 //Recursively scan dynamoDB 
