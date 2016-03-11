@@ -48,7 +48,7 @@
 var Taghash = function() {
 	this.maps = {
 		all:{
-			tags:[]
+			tags:{}
 		}
 	};
 };
@@ -77,6 +77,7 @@ Taghash.prototype.parsetags = function(tags) {
 			cities:{},
 			tags:{}
 		};
+
 
 		for (var j=0; j < tag.releases.SS.length; j++) {
 
@@ -178,7 +179,7 @@ var create_if_absent = function (object, item, template) {
 var get_city_code = function(city) {
 	var result;
 	switch (city) {
-		case 'new york city':
+		case 'new york':
 			result='nyc';
 			break;
 		case 'los angeles':

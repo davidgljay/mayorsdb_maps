@@ -33,7 +33,6 @@ var post_results = function() {
 scan_dynamo('')
 .then(post_results)
 .then(function(data) {
-	logger.info('Done mapping');
 	//Scale down AWS resources;
 	sns('','arn:aws:sns:us-east-1:663987893806:mayorsdb_notif').then(
 		logger.info("Mapping complete"));
